@@ -20,16 +20,20 @@ function initNavigation() {
   const navLinks = document.querySelector('.nav-links');
 
   if (navToggle && navLinks) {
+    const setMenuOpen = (open) => {
+      navToggle.classList.toggle('active', open);
+      navLinks.classList.toggle('active', open);
+      document.body.classList.toggle('nav-open', open);
+    };
+
     navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('active');
-      navLinks.classList.toggle('active');
+      setMenuOpen(!navLinks.classList.contains('active'));
     });
 
     // Close menu when clicking a link
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
+        setMenuOpen(false);
       });
     });
   }
@@ -91,24 +95,39 @@ function initParallax() {
   const hero = document.querySelector('.hero');
   const parallaxLogo = document.querySelector('[data-parallax]');
 
-  if (!hero) return;
+  if (!hero || !parallaxLogo) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobileQuery = window.matchMedia('(max-width: 768px)');
+
+  if (prefersReducedMotion || mobileQuery.matches) return;
 
   const handleParallax = () => {
+    if (mobileQuery.matches) {
+      parallaxLogo.style.transform = '';
+      return;
+    }
+
     const scrollY = window.scrollY;
     const heroHeight = hero.offsetHeight;
 
     if (scrollY < heroHeight) {
-      if (parallaxLogo) {
-        const factor = parseFloat(parallaxLogo.getAttribute('data-parallax')) || 0.15;
-        const offset = scrollY * factor;
-        parallaxLogo.style.transform = `translateY(${offset}px)`;
-      }
+      const factor = parseFloat(parallaxLogo.getAttribute('data-parallax')) || 0.15;
+      const offset = scrollY * factor;
+      parallaxLogo.style.transform = `translateY(${offset}px)`;
     } else {
-      if (parallaxLogo) parallaxLogo.style.transform = '';
+      parallaxLogo.style.transform = '';
     }
   };
 
   window.addEventListener('scroll', handleParallax, { passive: true });
+  mobileQuery.addEventListener('change', () => {
+    if (mobileQuery.matches) {
+      parallaxLogo.style.transform = '';
+    } else {
+      handleParallax();
+    }
+  });
   handleParallax();
 }
 
