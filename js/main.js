@@ -7,8 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize all components
   initNavigation();
   initHeaderScroll();
-  initBookingWidget();
   initAnimations();
+  initNavActiveState();
+  initParallax();
 });
 
 /**
@@ -55,31 +56,10 @@ function initHeaderScroll() {
 }
 
 /**
- * Booking Widget Toggle
- */
-function initBookingWidget() {
-  const bookingTrigger = document.querySelector('.booking-trigger');
-  const bookingPanel = document.querySelector('.booking-panel');
-
-  if (bookingTrigger && bookingPanel) {
-    bookingTrigger.addEventListener('click', () => {
-      bookingPanel.classList.toggle('active');
-    });
-
-    // Close panel when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.booking-widget')) {
-        bookingPanel.classList.remove('active');
-      }
-    });
-  }
-}
-
-/**
  * Scroll-triggered animations
  */
 function initAnimations() {
-  const animatedElements = document.querySelectorAll('.service-card, .testimonial-card, .about-image, .about-text');
+  const animatedElements = document.querySelectorAll('.service-card, .testimonial-card, .about-image, .about-text, .cta-content');
   
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
@@ -105,6 +85,34 @@ function initAnimations() {
 }
 
 /**
+ * Parallax effect for hero section
+ */
+function initParallax() {
+  const hero = document.querySelector('.hero');
+  const parallaxLogo = document.querySelector('[data-parallax]');
+
+  if (!hero) return;
+
+  const handleParallax = () => {
+    const scrollY = window.scrollY;
+    const heroHeight = hero.offsetHeight;
+
+    if (scrollY < heroHeight) {
+      if (parallaxLogo) {
+        const factor = parseFloat(parallaxLogo.getAttribute('data-parallax')) || 0.15;
+        const offset = scrollY * factor;
+        parallaxLogo.style.transform = `translateY(${offset}px)`;
+      }
+    } else {
+      if (parallaxLogo) parallaxLogo.style.transform = '';
+    }
+  };
+
+  window.addEventListener('scroll', handleParallax, { passive: true });
+  handleParallax();
+}
+
+/**
  * Smooth scroll for anchor links
  */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -119,3 +127,66 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+/**
+ * Update nav active state based on scroll position or current page
+ */
+function initNavActiveState() {
+  const navLinks = document.querySelectorAll('.nav-link');
+  const servicesSection = document.getElementById('services');
+  const isAboutPage = document.body.classList.contains('about-page') || window.location.pathname.includes('about');
+
+  function setActiveLink(section) {
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('data-section') === section);
+    });
+  }
+
+  if (isAboutPage) {
+    setActiveLink('about');
+    return;
+  }
+
+  // Update active state when nav links are clicked
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const section = link.getAttribute('data-section');
+      if (section && (section === 'home' || section === 'about' || link.getAttribute('href')?.startsWith('#'))) {
+        setActiveLink(section);
+      }
+    });
+  });
+
+  if (servicesSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveLink('services');
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
+
+    observer.observe(servicesSection);
+
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+      const heroObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActiveLink('home');
+          }
+        });
+      }, { threshold: 0.2, rootMargin: '-80px 0px 0px 0px' });
+      heroObserver.observe(heroSection);
+    }
+  } else {
+    setActiveLink('home');
+  }
+
+  // Initial state based on hash
+  if (window.location.hash === '#services' && servicesSection) {
+    setActiveLink('services');
+  } else if (!isAboutPage && !window.location.hash) {
+    setActiveLink('home');
+  }
+}

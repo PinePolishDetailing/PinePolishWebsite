@@ -19,16 +19,17 @@
   <header class="header">
     <nav class="nav container">
       <a href="index.html" class="nav-logo">
-        <img src="assets/PinePolishLogo.png" alt="Pine Polish Logo">
+        <img src="assets/PinePolishLogo.svg" alt="Pine Polish Logo">
         <span class="nav-logo-text">Pine Polish</span>
       </a>
       
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="testimonials.html">Testimonials</a></li>
+        <li><a href="index.html" class="nav-link" data-section="home">Home</a></li>
+        <li><a href="#services" class="nav-link" data-section="services">Services</a></li>
+        <li><a href="about.html" class="nav-link" data-section="about">About</a></li>
       </ul>
+      
+      <a href="https://bookedin.com/book/pine-polish-cart-detailing" target="_blank" rel="noopener noreferrer" class="btn btn-primary nav-cta">Book a Service</a>
       
       <button class="nav-toggle" aria-label="Toggle navigation">
         <span></span>
@@ -50,8 +51,8 @@
           <p>We bring the shine to your ride. Professional detailing services that make your golf cart look showroom-new, every single time.</p>
           <a href="#services" class="btn btn-primary">View Our Services</a>
         </div>
-        <div class="hero-logo">
-          <img src="assets/PinePolishLogo.png" alt="Pine Polish Cart Detailing">
+        <div class="hero-logo" data-parallax="0.15">
+          <img src="assets/PinePolishLogo.svg" alt="Pine Polish Cart Detailing">
         </div>
       </div>
     </div>
@@ -70,72 +71,60 @@
         <div class="service-card">
           <h3>Standard Wash</h3>
           <p>A thorough clean that covers all the essentials for a well-maintained cart.</p>
-          <div class="service-price">$45 <span>per service</span></div>
+          <div class="service-price-group">
+            <div class="service-price"><b>$35</b> <span>2 seat</span></div>
+            <div class="service-price"><b>$45</b> <span>4 seat</span></div>
+            <div class="service-price"><b>$60</b> <span>6 seat</span></div>
+          </div>
           <ul class="service-features">
             <li>Complete exterior wash</li>
-            <li>Interior wipe-down</li>
-            <li>Seat cleaning</li>
+            <li>Wipe down seats</li>
             <li>Wheel & tire cleaning</li>
-            <li>Glass & mirror polish</li>
-            <li>Floor mat cleaning</li>
+            <li>Glass & mirrors</li>
           </ul>
-          <a href="#book" class="btn btn-secondary">Book Now</a>
+          <a href="https://bookedin.com/book/pine-polish-cart-detailing" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Book Now</a>
         </div>
         
         <!-- Deluxe Wash -->
         <div class="service-card featured">
-          <span class="service-badge">Most Popular</span>
+          <!--<span class="service-badge">Most Popular</span>-->
           <h3>Deluxe Wash</h3>
           <p>The complete treatment for carts that deserve extra care and attention.</p>
-          <div class="service-price">$85 <span>per service</span></div>
+          <div class="service-price-group">
+            <div class="service-price">$50 <span>2 seat</span></div>
+            <div class="service-price">$60 <span>4 seat</span></div>
+            <div class="service-price">$75 <span>6 seat</span></div>
+          </div>
           <ul class="service-features">
             <li>Everything in Standard Wash</li>
             <li>Deep interior cleaning</li>
-            <li>Leather conditioning</li>
-            <li>Exterior polish & wax</li>
-            <li>Chrome detailing</li>
-            <li>Undercarriage rinse</li>
-            <li>UV protectant application</li>
-            <li>Air freshener treatment</li>
+            <li>Exterior polish / protectant</li>
+            <li>Wheel & Tire Shine</li>
           </ul>
-          <a href="#book" class="btn btn-primary">Book Now</a>
+          <a href="https://bookedin.com/book/pine-polish-cart-detailing" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Book Now</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Quick Info Section -->
-  <section style="background: var(--pine-pale); padding: 60px 0;">
+  <section class="cta-section">
     <div class="container text-center">
-      <h2>Ready to Make Your Cart Shine?</h2>
-      <p style="margin: 16px auto 32px; max-width: 600px;">Book your appointment today and experience the Pine Polish difference. We come to you—at your home, club, or community.</p>
-      <a href="#book" class="btn btn-primary">Schedule Your Service</a>
-    </div>
-  </section>
-
-  <!-- Booking Widget -->
-  <div class="booking-widget">
-    <button class="booking-trigger" aria-label="Open booking">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-    </button>
-    <div class="booking-panel">
-      <h4>Book Your Appointment</h4>
-      <div class="booking-placeholder">
-        <!-- BOOKING WIDGET EMBED PLACEHOLDER -->
-        <p>Booking widget will be embedded here</p>
+      <div class="cta-content">
+        <h2>Ready to Make Your Cart Shine?</h2>
+        <p>Book your appointment today and experience the Pine Polish difference.<br> We come to you, at your home.</p>
+        <a href="https://bookedin.com/book/pine-polish-cart-detailing" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Schedule Your Service</a>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-brand">
-          <img src="assets/PinePolishLogo.png" alt="Pine Polish" style="height: 60px; filter: brightness(0) invert(1);">
-          <p>Professional golf cart detailing services. We bring the shine to your ride, wherever you are.</p>
+          <img src="assets/PinePolishLogo.svg" alt="Pine Polish" class="footer-logo">
+          <p>Professional golf cart detailing services. We bring the shine to your ride.</p>
         </div>
         <div class="footer-nav">
           <h5>Navigation</h5>
@@ -143,20 +132,20 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="about.html">About</a></li>
-            <li><a href="testimonials.html">Testimonials</a></li>
           </ul>
         </div>
         <div class="footer-contact">
           <h5>Contact</h5>
           <ul class="footer-links">
-            <li><a href="tel:+15551234567">(555) 123-4567</a></li>
-            <li><a href="mailto:hello@pinepolish.com">hello@pinepolish.com</a></li>
-            <li>Serving Your Local Area</li>
+            <li><a href="tel:+19169185917">(916) 918-5917</a></li>
+            <li><a href="mailto:pinepolishdetail@gmail.com">pinepolishdetail@gmail.com</a></li>
+            <li>Serving Lake of the Pines</li>
           </ul>
         </div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 Pine Polish Cart Detailing. All rights reserved.</p>
+        <a href="https://www.toddrlewis.com" target="_blank" rel="noopener noreferrer">website designed &amp; built by <span>toddrlewis.com</span></a>
       </div>
     </div>
   </footer>
